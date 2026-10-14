@@ -13,6 +13,9 @@
   --color-cobalt: #2340c7;
   --color-charcoal: #2b2b2d;
   --color-bone: #e6e4de;
+  --color-felt: #8c8b86;
+  --color-leather: #8b5a3c;
+  --color-error: #b42318;
 
   --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;

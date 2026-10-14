@@ -51,7 +51,9 @@ export function Features() {
             <h3 className="text-xl font-semibold tracking-tight">Handwriting becomes text.</h3>
             <div className="mt-5 flex items-baseline gap-4">
               <span className="font-hand text-3xl">buy film</span>
-              <span aria-hidden className="text-muted">to</span>
+              <span aria-hidden className="text-muted">
+                to
+              </span>
               <span className="font-medium">buy film</span>
             </div>
           </Tile>

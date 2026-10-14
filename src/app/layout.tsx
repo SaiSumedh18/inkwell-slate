@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Caveat, Hanken_Grotesk, Newsreader } from "next/font/google";
+import { BagProvider } from "@/components/bag/bag-context";
+import { BagDrawer } from "@/components/bag/bag-drawer";
 import { MotionProvider } from "@/components/motion-provider";
+import { Nav } from "@/components/nav";
 import "./globals.css";
 
 const hanken = Hanken_Grotesk({ variable: "--font-hanken", subsets: ["latin"] });
@@ -20,7 +23,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${hanken.variable} ${newsreader.variable} ${caveat.variable} antialiased`}
     >
       <body className="font-sans">
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          <BagProvider>
+            <Nav />
+            {children}
+            <BagDrawer />
+          </BagProvider>
+        </MotionProvider>
       </body>
     </html>
   );

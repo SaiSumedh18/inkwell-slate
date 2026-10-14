@@ -5,7 +5,10 @@ import { motion } from "framer-motion";
 const steps = [
   { title: "Write", body: "Any page, any notebook. The pen needs no charging or pairing." },
   { title: "Convert", body: "Tap the margin and your handwriting turns into editable text." },
-  { title: "Find", body: "Search every notebook at once, including the pages you never converted." },
+  {
+    title: "Find",
+    body: "Search every notebook at once, including the pages you never converted.",
+  },
   { title: "Send", body: "Share a page as PDF or text by email, straight from the Slate." },
 ];
 

@@ -1,9 +1,10 @@
 # Inkwell Slate
 
-An Apple-style landing page for Inkwell Slate, a made-up e-ink notebook.
+An Apple-style store page for Inkwell Slate, a made-up e-ink notebook: scroll-driven
+hero, paper templates, a pen picker, a product configurator, a bag and a demo checkout.
 Built with Next.js, TypeScript, Tailwind CSS and Framer Motion.
 
-**Live site:** https://saisumedh18.github.io/my-website/
+**Live site:** https://saisumedh18.github.io/inkwell-slate/
 
 ## Run it on your computer
 

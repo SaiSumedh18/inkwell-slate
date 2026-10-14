@@ -14,10 +14,7 @@ export function Statement() {
 
   return (
     <section id="overview" className="bg-paper px-4 py-32 sm:py-48">
-      <p
-        ref={ref}
-        className="mx-auto max-w-4xl font-serif text-title font-medium sm:text-headline"
-      >
+      <p ref={ref} className="mx-auto max-w-4xl font-serif text-title font-medium sm:text-headline">
         <span className="sr-only">{text}</span>
         {words.map((w, i) => (
           <Word
