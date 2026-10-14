@@ -13,6 +13,10 @@ const faqs = [
     a: "The free Inkwell desktop app syncs notebooks over Wi-Fi to Mac and Windows. Pages export as PDF, PNG or text, so you can open them anywhere.",
   },
   {
+    q: "How do I erase with the Standard pen?",
+    a: "Tap Eraser in the toolbar at the top of the page, then rub out with the pen tip. Tap Pen to go back to writing. The Pro pen skips the tap: flip it over and use the eraser end.",
+  },
+  {
     q: "What happens if I lose the pen?",
     a: "Replacement pens are sold separately, and any Inkwell pen works with any Slate. Spare nibs come in the box.",
   },

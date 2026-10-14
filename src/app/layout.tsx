@@ -22,7 +22,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${hanken.variable} ${newsreader.variable} ${caveat.variable} antialiased`}
     >
-      <body className="font-sans">
+      {/* Browser extensions (e.g. Grammarly) add attributes to <body> before React loads. */}
+      <body className="font-sans" suppressHydrationWarning>
         <MotionProvider>
           <BagProvider>
             <Nav />
