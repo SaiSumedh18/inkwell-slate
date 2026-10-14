@@ -2,25 +2,22 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { palette } from "@/lib/palette";
-import { Lamp } from "./lamp";
+import { type Finish, Slate } from "./slate";
 
 const finishes = [
-  { id: "chalk", name: "Chalk", swatch: "bg-chalk" },
-  { id: "graphite", name: "Graphite", swatch: "bg-graphite" },
-] as const;
-
-type Finish = (typeof finishes)[number]["id"];
+  { id: "bone", name: "Bone", swatch: "bg-bone" },
+  { id: "charcoal", name: "Charcoal", swatch: "bg-charcoal" },
+] as const satisfies readonly { id: Finish; name: string; swatch: string }[];
 
 export function Buy() {
-  const [finish, setFinish] = useState<Finish>("chalk");
+  const [finish, setFinish] = useState<Finish>("bone");
   const [added, setAdded] = useState(false);
   const current = finishes.find((f) => f.id === finish)!;
 
   return (
     <section id="buy" className="bg-paper px-4 py-24 sm:py-32">
       <div className="mx-auto grid max-w-5xl items-center gap-16 md:grid-cols-2">
-        <div className="relative mx-auto w-full max-w-xs py-8">
+        <div className="relative mx-auto w-full max-w-[18rem]">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={finish}
@@ -29,14 +26,20 @@ export function Buy() {
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.35 }}
             >
-              <Lamp light={palette.sun} glow={0.9} finish={finish} />
+              <Slate finish={finish}>
+                <p className="absolute left-[9%] top-[8%] font-hand text-[11cqw] text-cobalt">
+                  Hello.
+                </p>
+              </Slate>
             </motion.div>
           </AnimatePresence>
         </div>
 
         <div>
-          <h2 className="text-headline font-semibold">Buy Lull One</h2>
-          <p className="mt-3 text-lede text-muted">$149. Free delivery and 60 nights to try it.</p>
+          <h2 className="font-serif text-headline font-medium">Buy Inkwell Slate</h2>
+          <p className="mt-3 text-lede text-muted">
+            $399 with the pen. Free delivery and 30 days to return it.
+          </p>
 
           <fieldset className="mt-10">
             <legend className="font-semibold">
@@ -57,7 +60,7 @@ export function Buy() {
                     className="peer sr-only"
                   />
                   <span
-                    className={`block size-10 rounded-full ${f.swatch} ring-2 ring-transparent ring-offset-2 transition peer-checked:ring-amber peer-focus-visible:ring-ink`}
+                    className={`block size-10 rounded-full ${f.swatch} ring-2 ring-transparent ring-offset-2 transition peer-checked:ring-cobalt peer-focus-visible:ring-ink`}
                   />
                   <span className="sr-only">{f.name}</span>
                 </label>
@@ -69,7 +72,7 @@ export function Buy() {
             type="button"
             onClick={() => setAdded(true)}
             whileTap={{ scale: 0.97 }}
-            className="mt-10 w-full rounded-full bg-ink px-8 py-4 font-medium text-white transition-colors hover:bg-graphite sm:w-auto"
+            className="mt-10 w-full rounded-full bg-cobalt px-8 py-4 font-medium text-white transition-colors hover:bg-ink sm:w-auto"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
@@ -80,7 +83,7 @@ export function Buy() {
                 transition={{ duration: 0.2 }}
                 className="block"
               >
-                {added ? `${current.name} Lull One added to bag` : "Add to bag"}
+                {added ? `${current.name} Slate added to bag` : "Add to bag"}
               </motion.span>
             </AnimatePresence>
           </motion.button>

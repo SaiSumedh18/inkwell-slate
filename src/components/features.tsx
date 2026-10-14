@@ -2,14 +2,12 @@
 
 import { motion } from "framer-motion";
 
-const sounds = ["Rain on canvas", "Distant surf", "Night train", "Box fan", "Pine forest", "Low hum"];
-
 export function Features() {
   return (
-    <section className="bg-paper px-4 py-24 sm:py-32">
+    <section className="bg-mist px-4 py-24 sm:py-32">
       <div className="mx-auto max-w-5xl">
-        <h2 className="max-w-2xl text-headline font-semibold">
-          Everything a bedside needs. Nothing it doesn&rsquo;t.
+        <h2 className="max-w-2xl font-serif text-headline font-medium">
+          It does one thing. It does it beautifully.
         </h2>
 
         <motion.div
@@ -19,52 +17,52 @@ export function Features() {
           transition={{ staggerChildren: 0.08 }}
           className="mt-16 grid gap-4 sm:grid-cols-6"
         >
-          {/* Sunrise */}
+          {/* Latency */}
           <Tile className="bg-night text-white sm:col-span-4 sm:row-span-2">
-            <div className="flex h-full flex-col justify-between gap-16">
+            <div className="flex h-full flex-col justify-between gap-12">
               <div>
-                <h3 className="text-title font-semibold">A sunrise, in thirty minutes.</h3>
+                <h3 className="text-title font-semibold">Ink lands where the nib does.</h3>
                 <p className="mt-3 max-w-md text-white/60">
-                  Light climbs from 1,800K to 6,500K, from a candle&rsquo;s glow to noon. You can
-                  shorten it to ten minutes or stretch it to an hour.
+                  Strokes appear nine milliseconds after the pen touches the screen. Fast enough
+                  that your hand never waits for the page.
                 </p>
               </div>
-              <div
-                aria-hidden
-                className="h-24 rounded-2xl bg-gradient-to-r from-night via-ember via-40% to-sun"
+              <Stroke />
+            </div>
+          </Tile>
+
+          {/* Battery */}
+          <Tile className="bg-paper sm:col-span-2">
+            <h3 className="text-xl font-semibold tracking-tight">Four weeks on a charge.</h3>
+            <p className="mt-2 text-muted">A screen that only uses power when the page changes.</p>
+            <div aria-hidden className="mt-6 h-3 overflow-hidden rounded-full bg-eink">
+              <motion.div
+                variants={{
+                  hidden: { scaleX: 0 },
+                  show: { scaleX: 0.92, transition: { duration: 1.2, delay: 0.3 } },
+                }}
+                className="h-full origin-left rounded-full bg-ink"
               />
             </div>
           </Tile>
 
-          {/* Sounds */}
-          <Tile className="bg-mist sm:col-span-2">
-            <h3 className="text-xl font-semibold tracking-tight">Twelve sounds for falling asleep.</h3>
-            <ul className="mt-4 space-y-1 text-muted">
-              {sounds.map((s) => (
-                <li key={s}>{s}</li>
-              ))}
-              <li className="text-ink">and six more.</li>
-            </ul>
-          </Tile>
-
-          {/* Dial */}
-          <Tile className="bg-mist sm:col-span-2">
-            <div className="flex flex-col items-start gap-6">
-              <Dial />
-              <div>
-                <h3 className="text-xl font-semibold tracking-tight">One dial. No app.</h3>
-                <p className="mt-1 text-muted">Turn for brightness. Press to snooze.</p>
-              </div>
+          {/* Conversion */}
+          <Tile className="bg-paper sm:col-span-2">
+            <h3 className="text-xl font-semibold tracking-tight">Handwriting becomes text.</h3>
+            <div className="mt-5 flex items-baseline gap-4">
+              <span className="font-hand text-3xl">buy film</span>
+              <span aria-hidden className="text-muted">to</span>
+              <span className="font-medium">buy film</span>
             </div>
           </Tile>
 
-          {/* Sunset */}
-          <Tile className="bg-gradient-to-b from-amber to-ember text-white sm:col-span-6">
+          {/* Quiet */}
+          <Tile className="bg-cobalt text-white sm:col-span-6">
             <div className="grid gap-6 sm:grid-cols-2 sm:items-end">
-              <h3 className="text-headline font-semibold">Sunset, too.</h3>
+              <h3 className="font-serif text-headline font-medium">No notifications. Ever.</h3>
               <p className="text-lede text-white/85">
-                At night it runs the other way. The light dims and warms over twenty minutes while
-                a sound plays, then fades to dark on its own.
+                No email, no feeds, no browser. When you pick up Slate, the only thing waiting for
+                you is the page you left off on.
               </p>
             </div>
           </Tile>
@@ -88,13 +86,21 @@ function Tile({ className = "", children }: { className?: string; children: Reac
   );
 }
 
-function Dial() {
+/** A pen stroke that draws itself when the tile comes into view. */
+function Stroke() {
   return (
-    <div
-      aria-hidden
-      className="relative size-20 shrink-0 rounded-full bg-gradient-to-br from-paper to-chalk shadow-[inset_0_-4px_8px_rgba(0,0,0,0.12),0_8px_16px_-6px_rgba(0,0,0,0.25)]"
-    >
-      <span className="absolute left-1/2 top-2 h-4 w-1 -translate-x-1/2 rounded-full bg-amber" />
-    </div>
+    <svg viewBox="0 0 400 80" className="w-full" aria-hidden>
+      <motion.path
+        d="M8 52 C 48 8, 72 8, 92 44 S 140 78, 168 40 S 214 6, 240 42 S 296 76, 324 36 S 372 18, 392 30"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+        variants={{
+          hidden: { pathLength: 0 },
+          show: { pathLength: 1, transition: { duration: 1.6, ease: "easeInOut", delay: 0.3 } },
+        }}
+      />
+    </svg>
   );
 }

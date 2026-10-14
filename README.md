@@ -1,6 +1,6 @@
-# Lull One
+# Inkwell Slate
 
-An Apple-style landing page for Lull One, a made-up sunrise alarm light.
+An Apple-style landing page for Inkwell Slate, a made-up e-ink notebook.
 Built with Next.js, TypeScript, Tailwind CSS and Framer Motion.
 
 **Live site:** https://saisumedh18.github.io/my-website/

@@ -20,7 +20,7 @@ export default function Home() {
       </main>
       <footer className="bg-mist px-4 py-10 text-sm text-muted">
         <div className="mx-auto max-w-5xl">
-          Lull and Lull One are a made-up brand and product, designed for this demo site.
+          Inkwell and Inkwell Slate are a made-up brand and product, designed for this demo site.
         </div>
       </footer>
     </>

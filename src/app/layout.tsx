@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
-import { Instrument_Sans } from "next/font/google";
+import { Caveat, Hanken_Grotesk, Newsreader } from "next/font/google";
 import { MotionProvider } from "@/components/motion-provider";
 import "./globals.css";
 
-const instrument = Instrument_Sans({
-  variable: "--font-instrument",
-  subsets: ["latin"],
-});
+const hanken = Hanken_Grotesk({ variable: "--font-hanken", subsets: ["latin"] });
+const newsreader = Newsreader({ variable: "--font-newsreader", subsets: ["latin"] });
+const caveat = Caveat({ variable: "--font-caveat", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Lull One — Wake up to a sunrise",
+  title: "Inkwell Slate — Paper, but it remembers",
   description:
-    "Lull One is a sunrise alarm light. Thirty minutes of slowly rising light, then a soft chime. No phone needed.",
+    "Inkwell Slate is a paper-thin e-ink notebook. Write by hand, search it like text, and never see a notification.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${instrument.variable} antialiased`}>
+    <html
+      lang="en"
+      className={`${hanken.variable} ${newsreader.variable} ${caveat.variable} antialiased`}
+    >
       <body className="font-sans">
         <MotionProvider>{children}</MotionProvider>
       </body>

@@ -1,17 +1,17 @@
 const specs = [
-  ["Light", "Up to 300 lux at 30 cm. 1,800K to 6,500K."],
-  ["Sound", "40 mm full-range speaker. Twelve built-in sleep sounds."],
-  ["Controls", "Rotating dial with press to snooze. Touch strip on top for sunset mode."],
-  ["Power", "USB-C, 15W adapter included. Alarms are kept for 72 hours if the power goes out."],
-  ["Size and weight", "18 cm across, 6 cm deep. 640 g."],
-  ["Materials", "Anodised aluminium ring. Frosted, recycled polycarbonate diffuser."],
+  ["Display", "10.3-inch e-ink, 226 ppi, with textured glass that feels like paper under the pen."],
+  ["Pen", "Battery-free stylus with 4,096 pressure levels. Attaches magnetically to the side."],
+  ["Battery", "Up to four weeks of normal use. Charges fully in 90 minutes over USB-C."],
+  ["Storage", "32 GB, about 100,000 pages. Backed up over Wi-Fi when you choose."],
+  ["Export", "PDF, PNG and plain text. Send by email or sync to your computer."],
+  ["Size and weight", "246 × 188 × 5.1 mm. 390 g."],
 ];
 
 export function Specs() {
   return (
     <section id="specs" className="bg-mist px-4 py-24 sm:py-32">
       <div className="mx-auto max-w-5xl">
-        <h2 className="text-headline font-semibold">Tech specs</h2>
+        <h2 className="font-serif text-headline font-medium">Tech specs</h2>
         <dl className="mt-12 divide-y divide-ink/10 border-y border-ink/10">
           {specs.map(([term, detail]) => (
             <div key={term} className="grid gap-2 py-6 sm:grid-cols-3 sm:gap-8">

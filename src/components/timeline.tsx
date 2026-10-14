@@ -3,27 +3,19 @@
 import { motion } from "framer-motion";
 
 const steps = [
-  {
-    time: "6:00",
-    title: "Deep red",
-    body: "1% brightness. Too dim to wake you, bright enough to start.",
-  },
-  { time: "6:10", title: "Amber", body: "Your eyelids notice before you do." },
-  { time: "6:20", title: "Warm white", body: "The room is lit like an early summer morning." },
-  {
-    time: "6:30",
-    title: "Daylight",
-    body: "Full brightness, and a soft chime. Most people are up already.",
-  },
+  { title: "Write", body: "Any page, any notebook. The pen needs no charging or pairing." },
+  { title: "Convert", body: "Tap the margin and your handwriting turns into editable text." },
+  { title: "Find", body: "Search every notebook at once, including the pages you never converted." },
+  { title: "Send", body: "Share a page as PDF or text by email, straight from the Slate." },
 ];
-
-const dots = ["bg-ember", "bg-amber", "bg-sun", "bg-paper"];
 
 export function Timeline() {
   return (
-    <section id="morning" className="bg-night px-4 py-24 text-white sm:py-32">
+    <section id="workflow" className="bg-night px-4 py-24 text-white sm:py-32">
       <div className="mx-auto max-w-5xl">
-        <h2 className="max-w-xl text-headline font-semibold">Your 6:30 alarm, minute by minute.</h2>
+        <h2 className="max-w-xl font-serif text-headline font-medium">
+          From margin to inbox in four steps.
+        </h2>
 
         <motion.div
           initial="hidden"
@@ -32,26 +24,27 @@ export function Timeline() {
           transition={{ staggerChildren: 0.25 }}
           className="relative mt-16"
         >
-          {/* the light rising across the timeline */}
+          {/* a line drawn across the steps */}
           <motion.div
             aria-hidden
             variants={{
               hidden: { scaleX: 0 },
               show: { scaleX: 1, transition: { duration: 1.4, ease: "easeInOut" } },
             }}
-            className="absolute left-0 right-0 top-[7px] hidden h-0.5 origin-left bg-gradient-to-r from-ember via-amber to-paper sm:block"
+            className="absolute left-0 right-0 top-[7px] hidden h-0.5 origin-left bg-white/30 sm:block"
           />
           <ol className="grid gap-10 sm:grid-cols-4 sm:gap-6">
             {steps.map((s, i) => (
               <motion.li
-                key={s.time}
+                key={s.title}
                 variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0 } }}
                 transition={{ duration: 0.6 }}
                 className="relative"
               >
-                <span className={`block size-4 rounded-full ${dots[i]}`} />
-                <p className="mt-6 text-title font-semibold tabular-nums">{s.time}</p>
-                <p className="mt-1 font-medium">{s.title}</p>
+                <span
+                  className={`block size-4 rounded-full ${i === steps.length - 1 ? "bg-cobalt" : "bg-white"}`}
+                />
+                <p className="mt-6 text-title font-semibold">{s.title}</p>
                 <p className="mt-2 text-white/60">{s.body}</p>
               </motion.li>
             ))}
