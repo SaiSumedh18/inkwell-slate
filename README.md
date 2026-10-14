@@ -7,7 +7,7 @@ Built with Next.js, TypeScript, Tailwind CSS and Framer Motion.
 
 ## Run it on your computer
 
-You need [Node.js](https://nodejs.org) 20 or newer.
+You need [Node.js](https://nodejs.org) 24 or newer.
 
 ```bash
 npm install
