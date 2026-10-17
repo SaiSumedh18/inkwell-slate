@@ -46,3 +46,8 @@ next-env.d.ts
 
 # local order storage used by `npm run dev`
 /.data/
+
+# Vercel CLI and marketplace helper files
+/.vercel/
+/.agents/
+skills-lock.json
