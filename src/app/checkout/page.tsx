@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Check out — Inkwell" };
 export default function CheckoutPage() {
   return (
     <>
-      <main className="min-h-svh bg-mist px-4 pb-24 pt-28">
+      <main id="main" className="min-h-svh bg-mist px-4 pb-24 pt-28">
         <Checkout />
       </main>
       <Footer />

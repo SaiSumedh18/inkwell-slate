@@ -81,3 +81,32 @@ export const formatPrice = (n: number) =>
     currency: "USD",
     maximumFractionDigits: 0,
   }).format(n);
+
+export const shippingMethods = [
+  { id: "standard", name: "Standard delivery", price: 0, days: [3, 5] },
+  { id: "express", name: "Express delivery", price: 15, days: [1, 2] },
+] as const;
+
+export type ShippingMethod = (typeof shippingMethods)[number]["id"];
+
+export const shippingById = (id: ShippingMethod) => byId(shippingMethods, id);
+
+/** Delivery window as readable dates, counting business days from `from`. */
+export function deliveryWindow(method: ShippingMethod, engraved: boolean, from = new Date()) {
+  const [min, max] = shippingById(method).days;
+  const extra = engraved ? 1 : 0;
+  const fmt = (d: Date) =>
+    d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  return `${fmt(addBusinessDays(from, min + extra))} – ${fmt(addBusinessDays(from, max + extra))}`;
+}
+
+function addBusinessDays(from: Date, days: number) {
+  const d = new Date(from);
+  while (days > 0) {
+    d.setDate(d.getDate() + 1);
+    if (d.getDay() !== 0 && d.getDay() !== 6) days--;
+  }
+  return d;
+}
+
+export const COUNTRIES = ["United States", "Canada", "United Kingdom", "India", "Australia"];

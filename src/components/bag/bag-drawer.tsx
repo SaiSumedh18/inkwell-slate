@@ -10,16 +10,35 @@ import { useBag } from "./bag-context";
 export function BagDrawer() {
   const { items, subtotal, isOpen, close, setQty, remove } = useBag();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!isOpen) return;
+    const opener = document.activeElement as HTMLElement | null;
     closeRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") return close();
+      // Keep Tab focus inside the panel while it's open.
+      if (e.key !== "Tab" || !panelRef.current) return;
+      const focusable = panelRef.current.querySelectorAll<HTMLElement>(
+        "a[href], button:not([disabled])",
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      opener?.focus();
     };
   }, [isOpen, close]);
 
@@ -36,6 +55,7 @@ export function BagDrawer() {
             className="fixed inset-0 z-[60] bg-night/40 backdrop-blur-sm"
           />
           <motion.aside
+            ref={panelRef}
             key="panel"
             role="dialog"
             aria-modal="true"

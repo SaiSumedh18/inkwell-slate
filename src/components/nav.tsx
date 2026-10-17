@@ -2,6 +2,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useBag } from "./bag/bag-context";
 
 const links = [
@@ -13,6 +15,21 @@ const links = [
 
 export function Nav() {
   const { count, open } = useBag();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Close the mobile menu when navigating or pressing Escape.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setMenuOpen(false);
+  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-ink/10 bg-mist/75 backdrop-blur-xl">
@@ -30,6 +47,15 @@ export function Nav() {
           ))}
         </ul>
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            className="grid size-9 place-items-center rounded-full text-ink transition-colors hover:bg-ink/5 md:hidden"
+          >
+            <MenuIcon open={menuOpen} />
+          </button>
           <button
             onClick={open}
             aria-label={`Open bag, ${count} ${count === 1 ? "item" : "items"}`}
@@ -58,7 +84,50 @@ export function Nav() {
           </Link>
         </div>
       </nav>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.ul
+            id="mobile-menu"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-t border-ink/10 px-4 md:hidden"
+          >
+            {[...links, { href: "/orders", label: "Order status" }].map((l) => (
+              <li key={l.href} className="border-b border-ink/5 last:border-0">
+                <Link
+                  href={l.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block py-4 font-serif text-2xl text-ink"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </header>
+  );
+}
+
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" className="size-5" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+      <motion.path
+        initial={false}
+        animate={{ d: open ? "M6 6L18 18" : "M4 9H20" }}
+        strokeLinecap="round"
+        transition={{ duration: 0.2 }}
+      />
+      <motion.path
+        initial={false}
+        animate={{ d: open ? "M6 18L18 6" : "M4 15H20" }}
+        strokeLinecap="round"
+        transition={{ duration: 0.2 }}
+      />
+    </svg>
   );
 }
 

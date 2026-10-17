@@ -11,7 +11,17 @@ const newsreader = Newsreader({ variable: "--font-newsreader", subsets: ["latin"
 const caveat = Caveat({ variable: "--font-caveat", subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "http://localhost:3000",
+  ),
   title: "Inkwell Slate — Paper, but it remembers",
+  openGraph: {
+    title: "Inkwell Slate",
+    description: "A paper-thin e-ink notebook. Write by hand, search it like text.",
+    type: "website",
+  },
   description:
     "Inkwell Slate is a paper-thin e-ink notebook. Write by hand, search it like text, and never see a notification.",
 };
@@ -26,6 +36,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="font-sans" suppressHydrationWarning>
         <MotionProvider>
           <BagProvider>
+            <a
+              href="#main"
+              className="fixed left-4 top-2 z-[80] -translate-y-20 rounded-full bg-ink px-4 py-2 text-sm text-white transition-transform focus:translate-y-0"
+            >
+              Skip to content
+            </a>
             <Nav />
             {children}
             <BagDrawer />
