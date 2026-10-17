@@ -6,7 +6,8 @@ import path from "node:path";
  * Key-value storage for orders.
  * - In production: Upstash Redis over its REST API (env vars are added by the
  *   Vercel Marketplace integration).
- * - In local development: a JSON file in `.data/`, so no setup is needed.
+ * - In local development (`npm run dev`): a JSON file in `.data/`, so test orders
+ *   never reach the live database. Set USE_REMOTE_STORE=true to use Redis locally.
  */
 export interface Store {
   set(key: string, value: string): Promise<void>;
@@ -79,7 +80,9 @@ function fileStore(): Store {
 }
 
 export function getStore(): Store {
-  if (redisUrl && redisToken) return redisStore(redisUrl, redisToken);
+  const isLocalDev =
+    process.env.NODE_ENV === "development" && process.env.USE_REMOTE_STORE !== "true";
+  if (redisUrl && redisToken && !isLocalDev) return redisStore(redisUrl, redisToken);
   // Vercel's filesystem is read-only and temporary, so refuse rather than lose orders.
   if (process.env.VERCEL) throw new StoreNotConfiguredError();
   return fileStore();
